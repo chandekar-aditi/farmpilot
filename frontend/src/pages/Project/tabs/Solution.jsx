@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+﻿import { useEffect, useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import client from '../../../api/client'
 import useProjectStore from '../../../store/projectStore'
@@ -42,6 +42,21 @@ function StepCard({ step, index }) {
 }
 
 function PhaseNutrientCard({ phase, index }) {
+  // phase shape (from backend PhaseNutrientCard schema):
+  //   phase_num, name, week_start, week_end, day_start, day_end,
+  //   dosage_per_20L { grow_g, bloom_g, cal_g, mg_g },
+  //   your_dosage    { grow_g, bloom_g, cal_g, mg_g },
+  //   your_reservoir_L, ec_min, ec_max, tds_min, tds_max, notes[]
+  const weekRange = `W${phase.week_start}–W${phase.week_end} (Day ${phase.day_start}–${phase.day_end})`
+  const ecTds     = `EC ${phase.ec_min}–${phase.ec_max} mS/cm  |  TDS ${phase.tds_min}–${phase.tds_max} ppm`
+
+  const nutrientRows = [
+    { name: 'NPK Grow',         base: `${phase.dosage_per_20L.grow_g}g`,  yours: `${phase.your_dosage.grow_g}g`  },
+    { name: 'NPK Bloom',        base: `${phase.dosage_per_20L.bloom_g}g`, yours: `${phase.your_dosage.bloom_g}g` },
+    { name: 'Calcium Nitrate',  base: `${phase.dosage_per_20L.cal_g}g`,   yours: `${phase.your_dosage.cal_g}g`   },
+    { name: 'Epsom Salt (MgSO₄)', base: `${phase.dosage_per_20L.mg_g}g`, yours: `${phase.your_dosage.mg_g}g`    },
+  ].filter((r) => parseFloat(r.base) > 0 || parseFloat(r.yours) > 0)
+
   return (
     <motion.div
       id={`phase-${index}`}
@@ -52,38 +67,46 @@ function PhaseNutrientCard({ phase, index }) {
     >
       <div className="bg-gradient-to-r from-green-700 to-green-500 px-6 py-4 flex items-center justify-between">
         <div>
-          <h3 className="text-white font-semibold text-base">{phase.phase_name}</h3>
-          <p className="text-green-100 text-xs mt-0.5">
-            {phase.week_range ?? phase.weeks ?? ''}
-          </p>
+          <h3 className="text-white font-semibold text-base">
+            Phase {phase.phase_num}: {phase.name}
+          </h3>
+          <p className="text-green-100 text-xs mt-0.5">{weekRange}</p>
         </div>
-        {phase.ec_tds_range && (
-          <span className="bg-white/20 text-white text-xs px-3 py-1 rounded-full font-medium">
-            EC/TDS: {phase.ec_tds_range}
-          </span>
-        )}
+        <span className="bg-white/20 text-white text-xs px-3 py-1 rounded-full font-medium">
+          {ecTds}
+        </span>
       </div>
 
-      {phase.nutrients && phase.nutrients.length > 0 && (
+      {nutrientRows.length > 0 && (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 text-xs uppercase tracking-wide">
                 <th className="py-2 px-4 text-left">Nutrient</th>
                 <th className="py-2 px-4 text-right">Base 20L dose</th>
-                <th className="py-2 px-4 text-right">Your Reservoir dose</th>
+                <th className="py-2 px-4 text-right">
+                  Your reservoir ({phase.your_reservoir_L}L) dose
+                </th>
               </tr>
             </thead>
             <tbody>
-              {phase.nutrients.map((n, ni) => (
+              {nutrientRows.map((n, ni) => (
                 <tr key={ni} className="border-b border-gray-50">
                   <td className="py-3 px-4 font-medium text-gray-800">{n.name}</td>
-                  <td className="py-3 px-4 text-right text-gray-600 tabular-nums">{n.base_dose}</td>
-                  <td className="py-3 px-4 text-right font-semibold text-green-700 tabular-nums">{n.reservoir_dose}</td>
+                  <td className="py-3 px-4 text-right text-gray-600 tabular-nums">{n.base}</td>
+                  <td className="py-3 px-4 text-right font-semibold text-green-700 tabular-nums">{n.yours}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {phase.notes && phase.notes.length > 0 && (
+        <div className="px-6 py-3 border-t border-gray-100 flex flex-col gap-1">
+          {phase.notes.map((note, ni) => (
+            <p key={ni} className="text-xs text-gray-500">• {note}</p>
+          ))}
         </div>
       )}
     </motion.div>
@@ -124,18 +147,22 @@ function WhatToBuyTable({ items }) {
                     <span className="font-medium text-gray-800">{item.name}</span>
                   </div>
                 </td>
-                <td className="py-3 px-4 text-right text-gray-600 tabular-nums">{item.grams_needed ?? '—'}</td>
-                <td className="py-3 px-4 text-right text-gray-600 tabular-nums">{item.packs ?? '—'}</td>
                 <td className="py-3 px-4 text-right text-gray-600 tabular-nums">
-                  {item.price != null ? `₹${Number(item.price).toLocaleString('en-IN')}` : '—'}
+                  {item.total_grams_needed > 0 ? `${item.total_grams_needed}g` : '—'}
+                </td>
+                <td className="py-3 px-4 text-right text-gray-600 tabular-nums">
+                  {item.packs_to_buy ?? '—'}
+                </td>
+                <td className="py-3 px-4 text-right text-gray-600 tabular-nums">
+                  {item.pack_price != null ? `₹${Number(item.pack_price).toLocaleString('en-IN')}` : '—'}
                 </td>
                 <td className="py-3 px-4 text-right font-semibold text-gray-800 tabular-nums">
-                  {item.total != null ? `₹${Number(item.total).toLocaleString('en-IN')}` : '—'}
+                  {item.total_price != null ? `₹${Number(item.total_price).toLocaleString('en-IN')}` : '—'}
                 </td>
                 <td className="py-3 px-4 text-center">
-                  {item.buy_url ? (
+                  {item.link ? (
                     <a
-                      href={item.buy_url}
+                      href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center px-3 py-1.5 rounded-lg bg-green-50 text-green-700 text-xs font-semibold hover:bg-green-100 transition-colors"
@@ -158,9 +185,8 @@ function WhatToBuyTable({ items }) {
 export default function Solution() {
   const { activeProject, solutionData, setSolutionData } = useProjectStore()
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError]     = useState(null)
   const [activePhase, setActivePhase] = useState(0)
-  const phaseRefs = useRef([])
 
   useEffect(() => {
     if (!activeProject?.id) return
@@ -202,9 +228,11 @@ export default function Solution() {
 
   if (!solutionData) return null
 
-  const steps = solutionData.mixing_protocol ?? []
-  const phases = solutionData.phases ?? []
-  const buyItems = solutionData.what_to_buy ?? []
+  // Field names match the backend SolutionResponse schema exactly:
+  //   mixing_steps, phase_cards, buy_list, total_nutrient_cost, crop_name
+  const steps    = solutionData.mixing_steps  ?? []
+  const phases   = solutionData.phase_cards   ?? []
+  const buyItems = solutionData.buy_list      ?? []
 
   return (
     <div className="flex flex-col gap-6">
@@ -254,7 +282,7 @@ export default function Solution() {
                     : 'bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-700'
                 }`}
               >
-                {phase.phase_name}
+                Phase {phase.phase_num}: {phase.name}
               </button>
             ))}
           </div>
@@ -268,6 +296,16 @@ export default function Solution() {
 
       {/* What to Buy */}
       <WhatToBuyTable items={buyItems} />
+
+      {/* Total cost footer */}
+      {solutionData.total_nutrient_cost > 0 && (
+        <div className="bg-green-50 rounded-2xl px-6 py-4 flex items-center justify-between">
+          <span className="text-sm font-medium text-gray-700">Total Nutrient Cost (full cycle)</span>
+          <span className="text-lg font-bold text-green-700">
+            ₹{Number(solutionData.total_nutrient_cost).toLocaleString('en-IN')}
+          </span>
+        </div>
+      )}
     </div>
   )
 }
