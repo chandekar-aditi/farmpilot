@@ -1,0 +1,273 @@
+import { useEffect, useState, useRef } from 'react'
+import { motion } from 'framer-motion'
+import client from '../../../api/client'
+import useProjectStore from '../../../store/projectStore'
+import ImageWithFallback from '../../../components/ui/ImageWithFallback'
+import Badge from '../../../components/ui/Badge'
+
+const HEADER_IMAGE = 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&q=80'
+
+function StepCard({ step, index }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, delay: index * 0.05 }}
+      className="bg-white rounded-2xl shadow-md p-5 flex gap-4"
+    >
+      <div className="flex-shrink-0">
+        <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm text-white ${step.is_critical ? 'bg-red-500' : 'bg-green-600'}`}>
+          {step.step_num}
+        </div>
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-start justify-between gap-3">
+          <p className="text-gray-800 text-sm leading-relaxed flex-1">{step.instruction}</p>
+          {step.product_image_url && (
+            <ImageWithFallback
+              src={step.product_image_url}
+              alt="Product"
+              className="w-12 h-12 rounded-xl object-cover flex-shrink-0"
+            />
+          )}
+        </div>
+        {step.is_critical && (
+          <div className="mt-2">
+            <Badge label="⚠️ Critical" color="red" />
+          </div>
+        )}
+      </div>
+    </motion.div>
+  )
+}
+
+function PhaseNutrientCard({ phase, index }) {
+  return (
+    <motion.div
+      id={`phase-${index}`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, delay: index * 0.06 }}
+      className="bg-white rounded-2xl shadow-md overflow-hidden"
+    >
+      <div className="bg-gradient-to-r from-green-700 to-green-500 px-6 py-4 flex items-center justify-between">
+        <div>
+          <h3 className="text-white font-semibold text-base">{phase.phase_name}</h3>
+          <p className="text-green-100 text-xs mt-0.5">
+            {phase.week_range ?? phase.weeks ?? ''}
+          </p>
+        </div>
+        {phase.ec_tds_range && (
+          <span className="bg-white/20 text-white text-xs px-3 py-1 rounded-full font-medium">
+            EC/TDS: {phase.ec_tds_range}
+          </span>
+        )}
+      </div>
+
+      {phase.nutrients && phase.nutrients.length > 0 && (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 text-xs uppercase tracking-wide">
+                <th className="py-2 px-4 text-left">Nutrient</th>
+                <th className="py-2 px-4 text-right">Base 20L dose</th>
+                <th className="py-2 px-4 text-right">Your Reservoir dose</th>
+              </tr>
+            </thead>
+            <tbody>
+              {phase.nutrients.map((n, ni) => (
+                <tr key={ni} className="border-b border-gray-50">
+                  <td className="py-3 px-4 font-medium text-gray-800">{n.name}</td>
+                  <td className="py-3 px-4 text-right text-gray-600 tabular-nums">{n.base_dose}</td>
+                  <td className="py-3 px-4 text-right font-semibold text-green-700 tabular-nums">{n.reservoir_dose}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
+function WhatToBuyTable({ items }) {
+  if (!items || items.length === 0) return null
+  return (
+    <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+      <div className="px-6 py-4 border-b border-gray-100">
+        <h2 className="text-lg font-bold text-gray-800">What to Buy</h2>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 text-xs uppercase tracking-wide">
+              <th className="py-2 px-4 text-left">Product</th>
+              <th className="py-2 px-4 text-right">Grams needed</th>
+              <th className="py-2 px-4 text-right">Packs</th>
+              <th className="py-2 px-4 text-right">Price ₹</th>
+              <th className="py-2 px-4 text-right">Total ₹</th>
+              <th className="py-2 px-4 text-center">Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item, i) => (
+              <tr key={i} className="border-b border-gray-50">
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-3">
+                    {item.image_url && (
+                      <ImageWithFallback
+                        src={item.image_url}
+                        alt={item.name}
+                        className="w-12 h-12 rounded-xl object-cover flex-shrink-0"
+                      />
+                    )}
+                    <span className="font-medium text-gray-800">{item.name}</span>
+                  </div>
+                </td>
+                <td className="py-3 px-4 text-right text-gray-600 tabular-nums">{item.grams_needed ?? '—'}</td>
+                <td className="py-3 px-4 text-right text-gray-600 tabular-nums">{item.packs ?? '—'}</td>
+                <td className="py-3 px-4 text-right text-gray-600 tabular-nums">
+                  {item.price != null ? `₹${Number(item.price).toLocaleString('en-IN')}` : '—'}
+                </td>
+                <td className="py-3 px-4 text-right font-semibold text-gray-800 tabular-nums">
+                  {item.total != null ? `₹${Number(item.total).toLocaleString('en-IN')}` : '—'}
+                </td>
+                <td className="py-3 px-4 text-center">
+                  {item.buy_url ? (
+                    <a
+                      href={item.buy_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-3 py-1.5 rounded-lg bg-green-50 text-green-700 text-xs font-semibold hover:bg-green-100 transition-colors"
+                    >
+                      Buy
+                    </a>
+                  ) : (
+                    <span className="text-gray-300 text-xs">—</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+export default function Solution() {
+  const { activeProject, solutionData, setSolutionData } = useProjectStore()
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [activePhase, setActivePhase] = useState(0)
+  const phaseRefs = useRef([])
+
+  useEffect(() => {
+    if (!activeProject?.id) return
+    setLoading(true)
+    client.get(`/projects/${activeProject.id}/solution`)
+      .then((res) => {
+        setSolutionData(res.data)
+        setError(null)
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false))
+  }, [activeProject?.id])
+
+  const scrollToPhase = (index) => {
+    setActivePhase(index)
+    const el = document.getElementById(`phase-${index}`)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center py-24 gap-4">
+        <div className="w-10 h-10 border-4 border-green-200 border-t-green-600 rounded-full animate-spin" />
+        <span className="text-gray-500 text-sm">Loading solution guide…</span>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center py-24">
+        <div className="text-center">
+          <p className="text-red-500 font-medium">Failed to load solution guide</p>
+          <p className="text-gray-400 text-sm mt-1">{error}</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!solutionData) return null
+
+  const steps = solutionData.mixing_protocol ?? []
+  const phases = solutionData.phases ?? []
+  const buyItems = solutionData.what_to_buy ?? []
+
+  return (
+    <div className="flex flex-col gap-6">
+      {/* Header image */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="relative rounded-2xl overflow-hidden h-52 shadow-md"
+      >
+        <ImageWithFallback
+          src={HEADER_IMAGE}
+          alt="Solution Guide"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="absolute bottom-5 left-6">
+          <h1 className="text-white text-2xl font-bold drop-shadow">Solution & Nutrient Guide</h1>
+          <p className="text-white/70 text-sm mt-1">{activeProject?.crop_name}</p>
+        </div>
+      </motion.div>
+
+      {/* Mixing Protocol */}
+      {steps.length > 0 && (
+        <div>
+          <h2 className="text-lg font-bold text-gray-800 mb-3">Mixing Protocol</h2>
+          <div className="flex flex-col gap-3">
+            {steps.map((step, i) => (
+              <StepCard key={i} step={step} index={i} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Phase Selector Pills */}
+      {phases.length > 0 && (
+        <div>
+          <h2 className="text-lg font-bold text-gray-800 mb-3">Nutrient Phases</h2>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {phases.map((phase, i) => (
+              <button
+                key={i}
+                onClick={() => scrollToPhase(i)}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  activePhase === i
+                    ? 'bg-green-700 text-white'
+                    : 'bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-700'
+                }`}
+              >
+                {phase.phase_name}
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-col gap-4">
+            {phases.map((phase, i) => (
+              <PhaseNutrientCard key={i} phase={phase} index={i} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* What to Buy */}
+      <WhatToBuyTable items={buyItems} />
+    </div>
+  )
+}

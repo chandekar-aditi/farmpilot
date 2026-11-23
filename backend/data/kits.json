@@ -1,0 +1,105 @@
+[
+  {
+    "kit_id": "kit_dutch_bucket_bell_pepper",
+    "diagram_label": "Dutch Bucket System — Bell Pepper",
+    "components": [
+      { "label": "A", "name": "Dutch Buckets (11L UV-resistant with siphon elbows)", "qty_formula": "kit_count * 5", "notes": "11L capacity each, dual siphon elbows included", "included_in_kit": true, "unit_price": 0, "link": "https://www.wehydroponics.com/store/product/5-dutch-bucket-system-hydroponics-kit-with-stand/", "image_url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&q=80" },
+      { "label": "B", "name": "Clay Pebble / Horticultural Perlite (50L bag)", "qty_formula": "kit_count * 1", "notes": "50L growing media per kit", "included_in_kit": true, "unit_price": 0, "link": "https://www.wehydroponics.com/store/product/5-dutch-bucket-system-hydroponics-kit-with-stand/", "image_url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&q=80" },
+      { "label": "C", "name": "Submersible Water Pump", "qty_formula": "kit_count * 1", "notes": "Included in base kit", "included_in_kit": true, "unit_price": 0, "link": "https://www.wehydroponics.com/store/product/5-dutch-bucket-system-hydroponics-kit-with-stand/", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "D", "name": "Lead-free PVC Feed & Drain Plumbing Manifold", "qty_formula": "kit_count * 1", "notes": "With micro-drip emitters", "included_in_kit": true, "unit_price": 0, "link": "https://www.wehydroponics.com/store/product/5-dutch-bucket-system-hydroponics-kit-with-stand/", "image_url": "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=200&q=80" },
+      { "label": "E", "name": "20L Reservoir Water Tank with Lid", "qty_formula": "kit_count * 1", "notes": "20L capacity", "included_in_kit": true, "unit_price": 0, "link": "https://www.wehydroponics.com/store/product/5-dutch-bucket-system-hydroponics-kit-with-stand/", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "F", "name": "Portable Metal Bucket Mounting Frame Stand", "qty_formula": "kit_count * 1", "notes": "50\" × 11\" × 12\" dimensions", "included_in_kit": true, "unit_price": 0, "link": "https://www.wehydroponics.com/store/product/5-dutch-bucket-system-hydroponics-kit-with-stand/", "image_url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&q=80" }
+    ],
+    "indoor_addons": [
+      { "label": "G", "id": "light_inhydro_100w", "name": "INHYDRO 100W LED Flood Light for Hydroponics", "qty_formula": "ceil(kit_count * 5 / 2.5)", "notes": "1 light covers 2.5 buckets", "included_in_kit": false, "unit_price": 2199, "link": "https://inhydro.in/product/flood-grow-light-100w/", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "H", "id": "fan_havells", "name": "Havells Birdie 230mm Personal Circulation Fan", "qty_formula": "ceil(kit_count * 5 / 4)", "notes": "1 fan per 4 buckets", "included_in_kit": false, "unit_price": 1649, "link": "https://www.flipkart.com/havells-birdie-230-mm-personal-fan/p/itm124c64e5be26e", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "I", "id": "timer_amici", "name": "amiciSmart 24x7 Digital Programmable Socket Timer (16A)", "qty_formula": "kit_count * 2", "notes": "2 timers per kit — pump + lights", "included_in_kit": false, "unit_price": 1621, "link": "https://www.flipkart.com/amicismart-digital-socket-timer-plug-247-programmable-16-on-off-10a-220v-programmable-electronic-switch/p/itmbbee4299514fe", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "J", "id": "meter_parijata", "name": "Parijata Digital pH & TDS Testing Pen Combo", "qty_formula": "1", "notes": "1 set per farm setup", "included_in_kit": false, "unit_price": 699, "link": "https://www.flipkart.com/parijata-digital-tds-meter-ph-combo-water-testing-commercial-use/p/itm5f9e88a9450c9", "image_url": "https://images.unsplash.com/photo-1587351021355-a479a299d2f9?w=200&q=80" }
+    ],
+    "outdoor_addons": [
+      { "label": "G", "id": "shade_net_bp", "name": "BENAVJI 50% Green HDPE UV Stabilized Shade Net", "qty_formula": "kit_count * 1", "notes": "18.75 sq ft per kit", "included_in_kit": false, "unit_price": 275, "link": "https://www.amazon.in/BENAVJI-Shade-Garden-Netting-Stabilized/dp/B089B619P3", "image_url": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=80" },
+      { "label": "H", "id": "meter_parijata_out_bp", "name": "Parijata Digital pH & TDS Testing Pen Combo", "qty_formula": "1", "notes": "1 set per farm setup", "included_in_kit": false, "unit_price": 699, "link": "https://www.flipkart.com/parijata-digital-tds-meter-ph-combo-water-testing-commercial-use/p/itm5f9e88a9450c9", "image_url": "https://images.unsplash.com/photo-1587351021355-a479a299d2f9?w=200&q=80" }
+    ]
+  },
+  {
+    "kit_id": "kit_kratky_spinach",
+    "diagram_label": "Passive Kratky System — Spinach",
+    "components": [
+      { "label": "A", "name": "Food-Grade UPVC PindPipe (26\") with 5 Net Cup Openings", "qty_formula": "kit_count * 1", "notes": "26 inch length, 5 slots", "included_in_kit": true, "unit_price": 0, "link": "https://www.pindfresh.com/product-page/the-pindpipe", "image_url": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=80" },
+      { "label": "B", "name": "PVC Stand Brackets", "qty_formula": "kit_count * 2", "notes": "2 brackets per kit", "included_in_kit": true, "unit_price": 0, "link": "https://www.pindfresh.com/product-page/the-pindpipe", "image_url": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=80" },
+      { "label": "C", "name": "2-Inch Net Pots & 100g Clay Pebbles", "qty_formula": "kit_count * 5", "notes": "5 net pots per kit", "included_in_kit": true, "unit_price": 0, "link": "https://www.pindfresh.com/product-page/the-pindpipe", "image_url": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=80" },
+      { "label": "D", "name": "Air Pump with Silicone Tubing and Air Stone", "qty_formula": "kit_count * 1", "notes": "Included in kit", "included_in_kit": true, "unit_price": 0, "link": "https://www.pindfresh.com/product-page/the-pindpipe", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" }
+    ],
+    "indoor_addons": [
+      { "label": "E", "id": "light_greenloop_24w", "name": "Greenloop 24W T8 Full-Spectrum LED Strip Light Bar", "qty_formula": "kit_count * 1", "notes": "1 light per kit", "included_in_kit": false, "unit_price": 750, "link": "https://greenloop.in/products/hydroponic-led-grow-light-bar", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "F", "id": "meter_parijata_sp", "name": "Parijata Digital pH & TDS Testing Pen Combo", "qty_formula": "1", "notes": "1 set per farm", "included_in_kit": false, "unit_price": 699, "link": "https://www.flipkart.com/parijata-digital-tds-meter-ph-combo-water-testing-commercial-use/p/itm5f9e88a9450c9", "image_url": "https://images.unsplash.com/photo-1587351021355-a479a299d2f9?w=200&q=80" }
+    ],
+    "outdoor_addons": [
+      { "label": "E", "id": "meter_parijata_sp_out", "name": "Parijata Digital pH & TDS Testing Pen Combo", "qty_formula": "1", "notes": "1 set per farm", "included_in_kit": false, "unit_price": 699, "link": "https://www.flipkart.com/parijata-digital-tds-meter-ph-combo-water-testing-commercial-use/p/itm5f9e88a9450c9", "image_url": "https://images.unsplash.com/photo-1587351021355-a479a299d2f9?w=200&q=80" }
+    ]
+  },
+  {
+    "kit_id": "kit_lettuce_dwc_nft",
+    "diagram_label": "NFT Flatbed System — Lettuce",
+    "components": [
+      { "label": "A", "name": "InHydro 36-Plant NFT Flatbed System Frame", "qty_formula": "kit_count * 1", "notes": "5ft × 1ft × 5ft dimensions", "included_in_kit": true, "unit_price": 0, "link": "https://inhydro.in/product/36-plant-easy-grow-outdoor-flatbed-hydroponics-nft-system/", "image_url": "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=200&q=80" },
+      { "label": "B", "name": "NFT Channels with 36 Net Cup Slots", "qty_formula": "kit_count * 36", "notes": "36 net cup openings per kit", "included_in_kit": true, "unit_price": 0, "link": "https://inhydro.in/product/36-plant-easy-grow-outdoor-flatbed-hydroponics-nft-system/", "image_url": "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=200&q=80" },
+      { "label": "C", "name": "Water Pump & Reservoir Tank", "qty_formula": "kit_count * 1", "notes": "Included with kit", "included_in_kit": true, "unit_price": 0, "link": "https://inhydro.in/product/36-plant-easy-grow-outdoor-flatbed-hydroponics-nft-system/", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "D", "name": "Net Pots & Clay Pebbles (36 pots)", "qty_formula": "kit_count * 36", "notes": "36 net pots per kit", "included_in_kit": true, "unit_price": 0, "link": "https://inhydro.in/product/36-plant-easy-grow-outdoor-flatbed-hydroponics-nft-system/", "image_url": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=80" }
+    ],
+    "indoor_addons": [
+      { "label": "E", "id": "light_inhydro_let", "name": "INHYDRO 100W LED Flood Light for Hydroponics", "qty_formula": "ceil(kit_count * 36 / 18)", "notes": "1 light per 18 slots", "included_in_kit": false, "unit_price": 2199, "link": "https://inhydro.in/product/flood-grow-light-100w/", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "F", "id": "timer_amici_let", "name": "amiciSmart Digital Programmable Socket Timer", "qty_formula": "kit_count * 1", "notes": "1 timer per kit", "included_in_kit": false, "unit_price": 1621, "link": "https://www.flipkart.com/amicismart-digital-socket-timer-plug-247-programmable-16-on-off-10a-220v-programmable-electronic-switch/p/itmbbee4299514fe", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "G", "id": "meter_parijata_let", "name": "Parijata Digital pH & TDS Testing Pen Combo", "qty_formula": "1", "notes": "1 set per farm", "included_in_kit": false, "unit_price": 699, "link": "https://www.flipkart.com/parijata-digital-tds-meter-ph-combo-water-testing-commercial-use/p/itm5f9e88a9450c9", "image_url": "https://images.unsplash.com/photo-1587351021355-a479a299d2f9?w=200&q=80" }
+    ],
+    "outdoor_addons": [
+      { "label": "E", "id": "meter_parijata_let_out", "name": "Parijata Digital pH & TDS Testing Pen Combo", "qty_formula": "1", "notes": "1 set per farm", "included_in_kit": false, "unit_price": 699, "link": "https://www.flipkart.com/parijata-digital-tds-meter-ph-combo-water-testing-commercial-use/p/itm5f9e88a9450c9", "image_url": "https://images.unsplash.com/photo-1587351021355-a479a299d2f9?w=200&q=80" }
+    ]
+  },
+  {
+    "kit_id": "kit_dutch_bucket_cherry_tomato",
+    "diagram_label": "Dutch Bucket Vine System — Cherry Tomato",
+    "components": [
+      { "label": "A", "name": "11L Dutch Buckets with Siphon Elbows", "qty_formula": "kit_count * 5", "notes": "5 buckets per kit", "included_in_kit": true, "unit_price": 0, "link": "https://www.wehydroponics.com/store/product/5-dutch-bucket-system-hydroponics-kit-with-stand/", "image_url": "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=200&q=80" },
+      { "label": "B", "name": "Clay Pebble / Perlite Growing Media (50L)", "qty_formula": "kit_count * 1", "notes": "50L bag per kit", "included_in_kit": true, "unit_price": 0, "link": "https://www.wehydroponics.com/store/product/5-dutch-bucket-system-hydroponics-kit-with-stand/", "image_url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&q=80" },
+      { "label": "C", "name": "Submersible Pump & 20L Reservoir Tank with Lid", "qty_formula": "kit_count * 1", "notes": "Included in kit", "included_in_kit": true, "unit_price": 0, "link": "https://www.wehydroponics.com/store/product/5-dutch-bucket-system-hydroponics-kit-with-stand/", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "D", "name": "Micro-Drip Plumbing Assembly & Metal Stand", "qty_formula": "kit_count * 1", "notes": "50\" × 11\" × 12\" stand", "included_in_kit": true, "unit_price": 0, "link": "https://www.wehydroponics.com/store/product/5-dutch-bucket-system-hydroponics-kit-with-stand/", "image_url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&q=80" }
+    ],
+    "indoor_addons": [
+      { "label": "E", "id": "light_inhydro_tom", "name": "INHYDRO 100W LED Flood Light for Hydroponics", "qty_formula": "ceil(kit_count * 5 / 2)", "notes": "1 light per 2 buckets", "included_in_kit": false, "unit_price": 2199, "link": "https://inhydro.in/product/flood-grow-light-100w/", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "F", "id": "exhaust_orient_tom", "name": "Orient Electric Ventilator DX Neo 200mm Exhaust Fan", "qty_formula": "1", "notes": "1 unit per room", "included_in_kit": false, "unit_price": 1349, "link": "https://www.flipkart.com/orient-electric-ventilator-dx-neo-200-mm-exhaust-fan/p/itm903d47d654cd3", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "G", "id": "meter_parijata_tom", "name": "Parijata Digital pH & TDS Testing Pen Combo", "qty_formula": "1", "notes": "1 set per farm", "included_in_kit": false, "unit_price": 699, "link": "https://www.flipkart.com/parijata-digital-tds-meter-ph-combo-water-testing-commercial-use/p/itm5f9e88a9450c9", "image_url": "https://images.unsplash.com/photo-1587351021355-a479a299d2f9?w=200&q=80" }
+    ],
+    "outdoor_addons": [
+      { "label": "E", "id": "shade_net_tom", "name": "BENAVJI 50% Green HDPE UV Stabilized Shade Net", "qty_formula": "kit_count * 1", "notes": "20 sq ft per kit", "included_in_kit": false, "unit_price": 400, "link": "https://www.amazon.in/BENAVJI-Shade-Garden-Netting-Stabilized/dp/B089B619P3", "image_url": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=80" }
+    ]
+  },
+  {
+    "kit_id": "kit_polybag_oyster_mushroom",
+    "diagram_label": "Polybag Substrate System — Oyster Mushroom",
+    "components": [
+      { "label": "A", "name": "5 KG Oyster Grain Spawn (Florida White / Blue / Pink)", "qty_formula": "kit_count * 1", "notes": "1st generation spawn", "included_in_kit": true, "unit_price": 0, "link": "https://www.bmmushroom.com/products/oyster-mushroom-spawn-5-kg-kit-spawn-plus-50-pp-bags-plus-bevistin.html", "image_url": "https://images.unsplash.com/photo-1504545102780-26774c1bb073?w=200&q=80" },
+      { "label": "B", "name": "50 × Autoclavable PP Cultivation Bags (12\" × 18\")", "qty_formula": "kit_count * 50", "notes": "Polypropylene grow bags", "included_in_kit": true, "unit_price": 0, "link": "https://www.bmmushroom.com/products/oyster-mushroom-spawn-5-kg-kit-spawn-plus-50-pp-bags-plus-bevistin.html", "image_url": "https://images.unsplash.com/photo-1571680322279-a226e6a4cc2a?w=200&q=80" },
+      { "label": "C", "name": "50g Bavistin Powder for Straw Pasteurization", "qty_formula": "kit_count * 1", "notes": "Trichoderma suppression", "included_in_kit": true, "unit_price": 0, "link": "https://www.bmmushroom.com/products/oyster-mushroom-spawn-5-kg-kit-spawn-plus-50-pp-bags-plus-bevistin.html", "image_url": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" }
+    ],
+    "indoor_addons": [
+      { "label": "D", "id": "humidifier_healthsense", "name": "HealthSense 4L Ultrasonic Cool-Mist Humidifier", "qty_formula": "ceil(space_sqft / 100)", "notes": "1 unit per 100 sq ft — mandatory for fruiting", "included_in_kit": false, "unit_price": 4500, "link": "https://healthsense.in/products/ultrasonic-humidifer-for-room-mositure-air-humidifier-for-cold-and-cough-top-filling-4-lts-capacity-aromatherapy-tray-360-enhance-comfort-for-home-baby-plants-bpa-free-rh690", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "E", "id": "exhaust_orient_mush", "name": "Orient Electric Ventilator DX Neo 200mm Exhaust Fan", "qty_formula": "1", "notes": "1 unit per room — CO2 control mandatory", "included_in_kit": false, "unit_price": 1349, "link": "https://www.flipkart.com/orient-electric-ventilator-dx-neo-200-mm-exhaust-fan/p/itm903d47d654cd3", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" }
+    ],
+    "outdoor_addons": []
+  },
+  {
+    "kit_id": "kit_casing_button_mushroom",
+    "diagram_label": "Casing Tray System — Button Mushroom",
+    "components": [
+      { "label": "A", "name": "2 KG Button Mushroom Grain Spawn (Agaricus bisporus)", "qty_formula": "kit_count * 1", "notes": "First generation spawn", "included_in_kit": true, "unit_price": 0, "link": "https://www.bmmushroom.com/products/button-mushroom-spawn-agaricus-bisporus-1-kg.html", "image_url": "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=200&q=80" },
+      { "label": "B", "name": "Sterilized Casing Soil & PP Growing Bags", "qty_formula": "kit_count * 1", "notes": "Included in kit", "included_in_kit": true, "unit_price": 0, "link": "https://www.bmmushroom.com/products/button-mushroom-spawn-agaricus-bisporus-1-kg.html", "image_url": "https://images.unsplash.com/photo-1571680322279-a226e6a4cc2a?w=200&q=80" },
+      { "label": "C", "name": "Spray Bottle & Digital Growing Guide", "qty_formula": "kit_count * 1", "notes": "Included in kit", "included_in_kit": true, "unit_price": 0, "link": "https://www.bmmushroom.com/products/button-mushroom-spawn-agaricus-bisporus-1-kg.html", "image_url": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" }
+    ],
+    "indoor_addons": [
+      { "label": "D", "id": "temp_controller_inkbird", "name": "Inkbird ITC-308 Dual-Relay Digital Temperature Controller", "qty_formula": "1", "notes": "1 unit per room — AC control mandatory for fruiting", "included_in_kit": false, "unit_price": 3350, "link": "https://aquariumhobby.in/product/inkbird-itc-308-temperature-controller/", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" },
+      { "label": "E", "id": "humidifier_btn", "name": "HealthSense 4L Ultrasonic Cool-Mist Humidifier", "qty_formula": "1", "notes": "1 unit per room", "included_in_kit": false, "unit_price": 4500, "link": "https://healthsense.in/products/ultrasonic-humidifer-for-room-mositure-air-humidifier-for-cold-and-cough-top-filling-4-lts-capacity-aromatherapy-tray-360-enhance-comfort-for-home-baby-plants-bpa-free-rh690", "image_url": "https://images.unsplash.com/photo-1558618047-f9b8c94ad45c?w=200&q=80" }
+    ],
+    "outdoor_addons": []
+  }
+]

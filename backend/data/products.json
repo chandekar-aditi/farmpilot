@@ -1,0 +1,122 @@
+[
+  {
+    "id": "NUT_NPK_01",
+    "name": "CityGreens Hydroponic NPK Nutrients Combo Set (Part A & Part B)",
+    "short_name": "NPK Combo Set",
+    "compatible_crops": "all_hydro",
+    "pack_size_kg": 1.0,
+    "price_inr": 899,
+    "link": "https://www.citygreens.shop/hydroponic-nutrients",
+    "image_url": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=200&q=80",
+    "nutrient_type": "npk"
+  },
+  {
+    "id": "NUT_CAN_02",
+    "name": "Katyayani Water Soluble Calcium Nitrate Ca(NO3)2",
+    "short_name": "Calcium Nitrate",
+    "compatible_crops": "all_hydro",
+    "pack_size_kg": 1.0,
+    "price_inr": 299,
+    "link": "https://www.katyayaniorganics.com/product/katyayani-calcium-nitrate",
+    "image_url": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80",
+    "nutrient_type": "calcium_nitrate"
+  },
+  {
+    "id": "NUT_MGS_03",
+    "name": "Katyayani Epsom Salt (Magnesium Sulphate MgSO4)",
+    "short_name": "Epsom Salt",
+    "compatible_crops": "all_hydro",
+    "pack_size_kg": 1.0,
+    "price_inr": 199,
+    "link": "https://www.amazon.in/dp/B09CZDZSLG",
+    "image_url": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80",
+    "nutrient_type": "magnesium"
+  },
+  {
+    "id": "NUT_PHD_04",
+    "name": "Casa De Amor Concentrated Hydroponic pH Down Adjuster",
+    "short_name": "pH Down Solution",
+    "compatible_crops": "all_hydro",
+    "pack_size_kg": 0.25,
+    "price_inr": 177,
+    "link": "https://casadeamor.in/products/casa-de-amor-ph-down-for-plants-lowers-high-ph-in-hydroponics-soil-plant-ph-adjuster-for-indoor-outdoor-gardening-supports-healthy-growth",
+    "image_url": "https://images.unsplash.com/photo-1587351021355-a479a299d2f9?w=200&q=80",
+    "nutrient_type": "ph_adjuster",
+    "usage_ml_per_reservoir_change": 5,
+    "note": "qty = ceil(total_reservoir_changes * 5ml / (pack_size_kg * 1000 * 1000)) i.e. ml units; 1 bottle = 250ml"
+  },
+  {
+    "id": "NUT_MUSH_05",
+    "name": "BM Mushroom 5kg Oyster Spawn + 50 PP Bags + Bavistin Kit",
+    "short_name": "Oyster Spawn Kit",
+    "compatible_crops": "kit_polybag_oyster_mushroom",
+    "pack_size_kg": 5.0,
+    "price_inr": 1050,
+    "link": "https://www.bmmushroom.com/products/oyster-mushroom-spawn-5-kg-kit-spawn-plus-50-pp-bags-plus-bevistin.html",
+    "image_url": "https://images.unsplash.com/photo-1504545102780-26774c1bb073?w=200&q=80",
+    "nutrient_type": "spawn"
+  },
+  {
+    "id": "NUT_BUTT_06",
+    "name": "BM Mushroom 2kg Button Mushroom Spawn & Casing Soil Kit",
+    "short_name": "Button Spawn Kit",
+    "compatible_crops": "kit_casing_button_mushroom",
+    "pack_size_kg": 2.0,
+    "price_inr": 399,
+    "link": "https://www.bmmushroom.com/products/button-mushroom-spawn-agaricus-bisporus-1-kg.html",
+    "image_url": "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=200&q=80",
+    "nutrient_type": "spawn"
+  },
+  {
+    "id": "SEED_BELL_PEPPER",
+    "name": "Bell Pepper / Capsicum Hydroponic Seeds (100 seeds/packet)",
+    "short_name": "Bell Pepper Seeds",
+    "compatible_crops": "kit_dutch_bucket_bell_pepper",
+    "pack_size_kg": 0.005,
+    "price_inr": 150,
+    "link": "https://www.amazon.in/s?k=bell+pepper+capsicum+hydroponic+seeds",
+    "image_url": "https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=200&q=80",
+    "nutrient_type": "seeds",
+    "seeds_per_packet": 100,
+    "qty_formula": "kit_count * 1"
+  },
+  {
+    "id": "SEED_SPINACH",
+    "name": "Spinach / Palak Hydroponic Seeds (100 seeds/packet)",
+    "short_name": "Spinach Seeds",
+    "compatible_crops": "kit_kratky_spinach",
+    "pack_size_kg": 0.005,
+    "price_inr": 80,
+    "link": "https://www.amazon.in/s?k=spinach+palak+hydroponic+seeds",
+    "image_url": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=200&q=80",
+    "nutrient_type": "seeds",
+    "seeds_per_packet": 100,
+    "qty_formula": "kit_count * 1"
+  },
+  {
+    "id": "SEED_LETTUCE",
+    "name": "Romaine / Butterhead Lettuce Hydroponic Seeds (200 seeds/packet)",
+    "short_name": "Lettuce Seeds",
+    "compatible_crops": "kit_lettuce_dwc_nft",
+    "pack_size_kg": 0.005,
+    "price_inr": 120,
+    "link": "https://www.amazon.in/s?k=romaine+butterhead+lettuce+hydroponic+seeds",
+    "image_url": "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=200&q=80",
+    "nutrient_type": "seeds",
+    "seeds_per_packet": 200,
+    "qty_formula": "ceil(N_total / 200)"
+  },
+  {
+    "id": "SEED_CHERRY_TOMATO",
+    "name": "Cherry Tomato Hydroponic Seeds (50 seeds/packet)",
+    "short_name": "Cherry Tomato Seeds",
+    "compatible_crops": "kit_dutch_bucket_cherry_tomato",
+    "pack_size_kg": 0.005,
+    "price_inr": 180,
+    "link": "https://www.amazon.in/s?k=cherry+tomato+hydroponic+seeds",
+    "image_url": "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=200&q=80",
+    "nutrient_type": "seeds",
+    "seeds_per_packet": 50,
+    "qty_formula": "ceil(N_total / 50)"
+  }
+]

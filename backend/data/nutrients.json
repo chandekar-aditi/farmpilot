@@ -1,0 +1,318 @@
+[
+  {
+    "kit_id": "kit_dutch_bucket_bell_pepper",
+    "mixing_sequence": [
+      "Fill reservoir tank with RO or filtered water (< 100 ppm TDS)",
+      "Dissolve Calcium Nitrate Ca(NO3)2 — stir 2 mins until fully dissolved",
+      "Dissolve NPK Grow/Bloom Base — stir 2 mins until solution is clear",
+      "Dissolve Epsom Salt MgSO4 — stir 2 mins",
+      "Wait 15 minutes for chemical stabilization",
+      "Measure pH and EC with digital pen",
+      "Adjust pH drop-by-drop with pH Down — lock to target 5.8–6.2"
+    ],
+    "critical_rules": [
+      "Never mix dry powders together — dissolve each separately in 1L warm water first",
+      "Always add Calcium Nitrate FIRST before any other nutrient",
+      "Always adjust pH LAST after all salts are dissolved",
+      "Outdoor: top up with plain pH 6.0 water mid-week; full drain every 14 days"
+    ],
+    "phases": [
+      {
+        "phase": 1, "name": "Seedling & Transplant", "week_start": 1, "week_end": 2, "day_start": 1, "day_end": 14,
+        "dosage_per_20L": { "grow_g": 8, "bloom_g": 0, "cal_g": 6, "mg_g": 3 },
+        "ec_min": 1.0, "ec_max": 1.2, "tds_min": 500, "tds_max": 600,
+        "daily_tasks": ["Verify drip stake water flow (15m ON / 60m OFF)", "Ensure drain line flows freely without back-pooling"],
+        "weekly_tasks": ["Test pH/EC every 3 days; adjust with pH Down if pH > 6.0", "Drain reservoir & refill with Phase 2 mix at end of W2"],
+        "observations": ["White root tips emerging through perlite base", "Leaves bright green without tip scorching", "Stem diameter reaching 4–5 mm"]
+      },
+      {
+        "phase": 2, "name": "Early Vegetative", "week_start": 3, "week_end": 4, "day_start": 15, "day_end": 28,
+        "dosage_per_20L": { "grow_g": 14, "bloom_g": 0, "cal_g": 12, "mg_g": 5 },
+        "ec_min": 1.5, "ec_max": 1.7, "tds_min": 750, "tds_max": 850,
+        "daily_tasks": ["Top up reservoir with plain pH 6.0 water daily", "Check LED grow light height (14\"–16\" above canopy)"],
+        "weekly_tasks": ["Pinch Crown Bud: remove single flower at first Y-fork", "Strip suckers — prune all side shoots below first Y-fork", "Tie main trunk to bamboo stake"],
+        "observations": ["Stem thickens into woody structure", "Clear Y-fork branching pattern establishes", "Vigorous white root growth in siphon elbow zone"]
+      },
+      {
+        "phase": 3, "name": "Late Vegetative", "week_start": 5, "week_end": 6, "day_start": 29, "day_end": 42,
+        "dosage_per_20L": { "grow_g": 18, "bloom_g": 0, "cal_g": 15, "mg_g": 6 },
+        "ec_min": 1.8, "ec_max": 2.0, "tds_min": 900, "tds_max": 1000,
+        "daily_tasks": ["Verify daytime circulation fan movement (leaves should gently dance)", "Check reservoir water temp (< 24°C)"],
+        "weekly_tasks": ["Select 2–3 main leaders; prune weak inward shoots", "Strip leaves lower 5\" off perlite for air circulation", "Drain reservoir & refill Phase 4 mix at end of W6"],
+        "observations": ["Lush dark green leaf canopy", "Absence of yellowing lower leaves", "Branch cell walls thickening to support fruit weight"]
+      },
+      {
+        "phase": 4, "name": "Pre-Flowering Transition", "week_start": 7, "week_end": 8, "day_start": 43, "day_end": 56,
+        "dosage_per_20L": { "grow_g": 10, "bloom_g": 10, "cal_g": 16, "mg_g": 7 },
+        "ec_min": 2.0, "ec_max": 2.2, "tds_min": 1000, "tds_max": 1100,
+        "daily_tasks": ["Inspect branch nodes for tight flower bud clusters", "Monitor water consumption (uptake accelerates)"],
+        "weekly_tasks": ["Install vertical nylon trellis strings to overhead wire", "Twist main leaders around trellis cords", "Thin double flower clusters down to 1 strong bud per node"],
+        "observations": ["Abundant flower bud formation", "Plant height reaching 2.5–3.0 feet", "Stem nodes tightening"]
+      },
+      {
+        "phase": 5, "name": "Flowering & Fruit Set", "week_start": 9, "week_end": 12, "day_start": 57, "day_end": 84,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 22, "cal_g": 18, "mg_g": 8 },
+        "ec_min": 2.3, "ec_max": 2.5, "tds_min": 1150, "tds_max": 1250,
+        "daily_tasks": ["Hand Pollinate (Indoor): swirl artist brush inside flowers 10 AM–2 PM daily", "Monitor temp (21°C–29°C; avoid > 32°C)"],
+        "weekly_tasks": ["Lock pH strictly to 6.0–6.2 to enable calcium absorption", "Full reservoir drain & fresh Phase 5 remix every 14 days", "Clean pump intake sponge filter"],
+        "observations": ["White petals dropping cleanly to reveal green pea-sized fruitlets", "No blossom drop (flowers staying attached to stem)"]
+      },
+      {
+        "phase": 6, "name": "Peak Fruiting & Harvest", "week_start": 13, "week_end": 24, "day_start": 85, "day_end": 168,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 26, "cal_g": 20, "mg_g": 10 },
+        "ec_min": 2.6, "ec_max": 3.0, "tds_min": 1300, "tds_max": 1500,
+        "daily_tasks": ["Top up 2.5–4L water/bucket daily", "Inspect fruit bottoms for Blossom-End Rot (dark leathery patches)"],
+        "weekly_tasks": ["Harvest glossy green peppers weekly (leave 0.5\" stem)", "Clip heavy branches to trellis wires to prevent snapping", "Full reservoir drain & remix every 14 days"],
+        "observations": ["Thick-walled 3-to-4-lobed glossy peppers", "Continuous waves of new blossoms at upper nodes", "Leaves remain deep green without chlorosis"]
+      },
+      {
+        "phase": 7, "name": "Late Harvest", "week_start": 25, "week_end": 27, "day_start": 169, "day_end": 189,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 18, "cal_g": 14, "mg_g": 7 },
+        "ec_min": 2.0, "ec_max": 2.2, "tds_min": 1000, "tds_max": 1100,
+        "daily_tasks": ["Monitor fruit color shift from green to deep red/yellow", "Top up water every 2 days"],
+        "weekly_tasks": ["Snip main growing tips 4 weeks prior to end", "Pinch all tiny new flower buds to channel energy into ripening"],
+        "observations": ["80%+ of fruit fully turned vibrant red or yellow", "Sugar content peaking (sweet aroma)", "Growth stalling naturally"]
+      },
+      {
+        "phase": 8, "name": "Final Flush", "week_start": 28, "week_end": 28, "day_start": 190, "day_end": 210,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 0, "cal_g": 0, "mg_g": 0 },
+        "ec_min": 0, "ec_max": 0.3, "tds_min": 0, "tds_max": 150,
+        "daily_tasks": ["Run plain pH 6.0 water (zero nutrients) for 7 days"],
+        "weekly_tasks": ["Harvest final full crop on Day 7", "Sterilize buckets & perlite with 3% H2O2 for next cycle"],
+        "observations": ["Salts flushed out for crisp sweet pepper flavor", "Roots turning tan prior to system shutdown"]
+      }
+    ]
+  },
+  {
+    "kit_id": "kit_kratky_spinach",
+    "mixing_sequence": [
+      "Fill UPVC pipe / container with fresh water",
+      "Dissolve Calcium Nitrate Ca(NO3)2 — stir until clear",
+      "Dissolve NPK Grow Base — stir 2 mins",
+      "Dissolve Epsom Salt MgSO4 — stir 2 mins",
+      "Wait 10 minutes for stabilization",
+      "Measure pH and EC with digital pen",
+      "Adjust pH with pH Down to target 5.5–6.5"
+    ],
+    "critical_rules": [
+      "Kratky system is passive — do NOT refill reservoir until it drops 30%",
+      "Maintain 1.5\"–2\" air gap between water surface and net cup bottom",
+      "Lower water level by 1 inch once roots hit water to create passive air gap"
+    ],
+    "phases": [
+      {
+        "phase": 1, "name": "Germination & Air Gap", "week_start": 1, "week_end": 1, "day_start": 1, "day_end": 7,
+        "dosage_per_20L": { "grow_g": 6, "bloom_g": 0, "cal_g": 4, "mg_g": 2 },
+        "ec_min": 0.8, "ec_max": 1.0, "tds_min": 400, "tds_max": 500,
+        "daily_tasks": ["Verify net cup bottoms touch water level by 1/4 inch", "Ensure indoor grow light runs 14 hrs/day"],
+        "weekly_tasks": ["Check root emergence through net cup slots", "Lower water level by 1 inch once roots hit water to create passive air gap"],
+        "observations": ["White taproots protruding from coir plugs", "Cotyledon leaves fully expanded"]
+      },
+      {
+        "phase": 2, "name": "Active Leaf Growth", "week_start": 2, "week_end": 3, "day_start": 8, "day_end": 21,
+        "dosage_per_20L": { "grow_g": 12, "bloom_g": 0, "cal_g": 10, "mg_g": 4 },
+        "ec_min": 1.2, "ec_max": 1.4, "tds_min": 600, "tds_max": 700,
+        "daily_tasks": ["Check air-gap zone (roots must have 1.5\"–2\" air space above water)", "Verify water temp stays below 25°C"],
+        "weekly_tasks": ["Measure pH & EC; top up plain pH 6.0 water if solution drops > 30%", "Inspect under leaves for aphids or leaf miners"],
+        "observations": ["Rapid expansion of broad crinkled dark-green leaves", "Healthy oxygenated white root mass suspended in air gap"]
+      },
+      {
+        "phase": 3, "name": "Pre-Harvest", "week_start": 4, "week_end": 4, "day_start": 22, "day_end": 30,
+        "dosage_per_20L": { "grow_g": 8, "bloom_g": 0, "cal_g": 6, "mg_g": 2 },
+        "ec_min": 1.0, "ec_max": 1.2, "tds_min": 500, "tds_max": 600,
+        "daily_tasks": ["Check for early signs of bolting (center stem elongation)", "Verify light distance (6\" above leaves)"],
+        "weekly_tasks": ["Harvest outer mature leaves weekly (cut-and-come-again method)", "Full reservoir drain and reset after 30–35 days"],
+        "observations": ["Tender vibrant green leaves ready for culinary picking", "Absence of bitterness or tall flower stalks"]
+      }
+    ]
+  },
+  {
+    "kit_id": "kit_lettuce_dwc_nft",
+    "mixing_sequence": [
+      "Fill reservoir with RO or filtered water (< 100 ppm TDS)",
+      "Dissolve Calcium Nitrate Ca(NO3)2 — stir 2 mins",
+      "Dissolve NPK Grow Base — stir 2 mins until clear",
+      "Dissolve Epsom Salt MgSO4 — stir 2 mins",
+      "Wait 15 minutes for stabilization",
+      "Measure pH and EC with digital pen",
+      "Adjust pH with pH Down to target 5.5–6.2"
+    ],
+    "critical_rules": [
+      "NFT channel must run a thin continuous film — not overflow",
+      "Maintain circulation fan to prevent Tip Burn (calcium deficiency at leaf edges)",
+      "Water temperature must stay below 24°C to prevent root rot"
+    ],
+    "phases": [
+      {
+        "phase": 1, "name": "Nursery Plug", "week_start": 1, "week_end": 2, "day_start": 1, "day_end": 14,
+        "dosage_per_20L": { "grow_g": 6, "bloom_g": 0, "cal_g": 5, "mg_g": 2 },
+        "ec_min": 0.8, "ec_max": 1.0, "tds_min": 400, "tds_max": 500,
+        "daily_tasks": ["Keep nursery sponge plugs damp", "Ensure 16 hrs LED light exposure"],
+        "weekly_tasks": ["Transfer seedlings with 3 true leaves into NFT/DWC net cups", "Set initial low-strength Phase 1 nutrient mix"],
+        "observations": ["Sturdy 3-to-4 leaf seedlings", "Bright white root tips extending past sponge base"]
+      },
+      {
+        "phase": 2, "name": "Channel Growth", "week_start": 3, "week_end": 4, "day_start": 15, "day_end": 28,
+        "dosage_per_20L": { "grow_g": 12, "bloom_g": 0, "cal_g": 10, "mg_g": 5 },
+        "ec_min": 1.3, "ec_max": 1.5, "tds_min": 650, "tds_max": 750,
+        "daily_tasks": ["Inspect NFT channel water flow (thin continuous film — no overflow)", "Ensure circulation fan prevents Tip Burn"],
+        "weekly_tasks": ["Check EC/pH twice weekly", "Clean inline pump filter mesh", "Check water temperature (< 24°C)"],
+        "observations": ["Rapid leaf rosette expansion", "Crisp clean leaf margins without brown tip burn", "Abundant white root mats inside NFT channels"]
+      },
+      {
+        "phase": 3, "name": "Head Sizing & Harvest", "week_start": 5, "week_end": 6, "day_start": 29, "day_end": 40,
+        "dosage_per_20L": { "grow_g": 15, "bloom_g": 0, "cal_g": 12, "mg_g": 6 },
+        "ec_min": 1.5, "ec_max": 1.7, "tds_min": 750, "tds_max": 850,
+        "daily_tasks": ["Inspect head firmness and weight", "Check for root rot (browning/slimy roots)"],
+        "weekly_tasks": ["Drain tank and run plain water flush for 48 hours prior to harvest", "Harvest full intact head by cutting base stem at net cup"],
+        "observations": ["Dense tightly cupped heads (180g–220g weight)", "Sweet crisp flavor without bitter latex sap"]
+      }
+    ]
+  },
+  {
+    "kit_id": "kit_dutch_bucket_cherry_tomato",
+    "mixing_sequence": [
+      "Fill reservoir tank with RO or filtered water (< 100 ppm TDS)",
+      "Dissolve Calcium Nitrate Ca(NO3)2 — stir 2 mins until fully dissolved",
+      "Dissolve NPK Grow/Bloom Base — stir 2 mins until solution is clear",
+      "Dissolve Epsom Salt MgSO4 — stir 2 mins",
+      "Wait 15 minutes for chemical stabilization",
+      "Measure pH and EC with digital pen",
+      "Adjust pH drop-by-drop with pH Down — lock to target 5.8–6.5"
+    ],
+    "critical_rules": [
+      "Never mix dry powders together — dissolve each separately in 1L warm water first",
+      "Vibrate flower trusses daily at noon to release pollen (indoor)",
+      "Prune suckers weekly — snap off all side shoots growing in leaf axils",
+      "Full tank drain every 14 days during heavy fruiting phase"
+    ],
+    "phases": [
+      {
+        "phase": 1, "name": "Seedling", "week_start": 1, "week_end": 2, "day_start": 1, "day_end": 14,
+        "dosage_per_20L": { "grow_g": 8, "bloom_g": 0, "cal_g": 6, "mg_g": 3 },
+        "ec_min": 1.0, "ec_max": 1.2, "tds_min": 500, "tds_max": 600,
+        "daily_tasks": ["Check drip emitters for steady drip flow", "Verify daytime pump cycle (15m ON / 45m OFF)"],
+        "weekly_tasks": ["Test pH/EC every 3 days", "Stake seedling with plant clip"],
+        "observations": ["Strong central stem", "Deep green compound leaves without purple nitrogen-deficiency tint"]
+      },
+      {
+        "phase": 2, "name": "Early Vegetative", "week_start": 3, "week_end": 4, "day_start": 15, "day_end": 28,
+        "dosage_per_20L": { "grow_g": 16, "bloom_g": 0, "cal_g": 14, "mg_g": 6 },
+        "ec_min": 1.6, "ec_max": 1.8, "tds_min": 800, "tds_max": 900,
+        "daily_tasks": ["Top up water reservoir daily", "Check LED light distance (18\" above top growth)"],
+        "weekly_tasks": ["Prune Suckers: snap off all side shoots growing in leaf axils weekly", "Wind main vine around vertical rollerhook twine"],
+        "observations": ["Thick main stem (> 10mm diameter)", "First flower truss emerging at node 7–8"]
+      },
+      {
+        "phase": 3, "name": "Flowering & Trusses", "week_start": 5, "week_end": 8, "day_start": 29, "day_end": 56,
+        "dosage_per_20L": { "grow_g": 10, "bloom_g": 14, "cal_g": 18, "mg_g": 8 },
+        "ec_min": 2.2, "ec_max": 2.5, "tds_min": 1100, "tds_max": 1250,
+        "daily_tasks": ["Vibrate Trusses: tap flower clusters or vibrate with toothbrush at noon daily", "Check room exhaust fan"],
+        "weekly_tasks": ["Maintain EC at 2.2–2.5", "Full tank drain & remix every 14 days", "Prune lower leaves below lowest fruiting truss"],
+        "observations": ["Bright yellow flower clusters setting into firm green cherry fruitlets", "10–15 tomatoes per cluster truss"]
+      },
+      {
+        "phase": 4, "name": "Heavy Fruiting", "week_start": 9, "week_end": 20, "day_start": 57, "day_end": 140,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 28, "cal_g": 22, "mg_g": 12 },
+        "ec_min": 2.6, "ec_max": 3.2, "tds_min": 1300, "tds_max": 1600,
+        "daily_tasks": ["Top up 3–4L water/bucket daily", "Inspect for Blossom-End Rot or fruit cracking"],
+        "weekly_tasks": ["Harvest clusters of deep red glossy cherry tomatoes twice weekly", "Continue sucker pruning and vertical cord winding", "Full reservoir drain every 14 days"],
+        "observations": ["Continuous waves of sweet high-Brix red cherry tomatoes", "Strong vine reaching 6–8 feet height"]
+      },
+      {
+        "phase": 5, "name": "Ripening & Termination", "week_start": 21, "week_end": 24, "day_start": 141, "day_end": 180,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 14, "cal_g": 10, "mg_g": 5 },
+        "ec_min": 1.4, "ec_max": 1.6, "tds_min": 700, "tds_max": 800,
+        "daily_tasks": ["Top main growing tip 4 weeks prior to end", "Reduce EC strength to 1.4 mS/cm"],
+        "weekly_tasks": ["Pick final ripening fruit", "Flush system with plain pH 6.0 water for 5 days before clearing vines"],
+        "observations": ["Remaining fruit ripening uniformly", "Clean final harvest yield"]
+      }
+    ]
+  },
+  {
+    "kit_id": "kit_polybag_oyster_mushroom",
+    "mixing_sequence": [
+      "No liquid nutrients required — substrate provides all nutrition",
+      "Soak chopped wheat/paddy straw in clean water for 12 hours (target 65% moisture)",
+      "Mix 10 kg Wheat Bran + 2 kg Gypsum CaSO4 + 1 kg Calcium Carbonate per 100 kg straw",
+      "Hot water pasteurize at 65°C–70°C for 2 hours with 50g Bavistin per 100L water",
+      "Cool to room temperature before inoculation",
+      "Layer 5 kg Oyster Grain Spawn (5% spawn rate) into 50 PP bags under sterile conditions"
+    ],
+    "critical_rules": [
+      "Incubation must be in complete darkness — no light during spawn run",
+      "Do NOT run humidifier or exhaust fan during spawn run (Days 1–18)",
+      "Discard infected bags (green mold) immediately — do not delay",
+      "CO2 must stay below 800 ppm during fruiting — exhaust fan is mandatory"
+    ],
+    "phases": [
+      {
+        "phase": 1, "name": "Incubation / Spawn Run", "week_start": 1, "week_end": 3, "day_start": 1, "day_end": 18,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 0, "cal_g": 0, "mg_g": 0 },
+        "ec_min": 0, "ec_max": 0, "tds_min": 0, "tds_max": 0,
+        "daily_tasks": ["Keep incubation room in complete darkness", "Monitor room temperature (24°C–26°C)", "Do NOT run humidifier or exhaust fan during spawn run"],
+        "weekly_tasks": ["Inspect all bags for Green Mold (Trichoderma) or black spots", "Discard infected bags immediately out of room", "Mop floor with 1% bleach solution"],
+        "observations": ["White cottony mycelium running rapidly through straw substrate", "Bag turning completely white by Day 15–18", "Fresh mushroom aroma (no sour odor)"]
+      },
+      {
+        "phase": 2, "name": "Pinning & Fruiting", "week_start": 3, "week_end": 4, "day_start": 19, "day_end": 30,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 0, "cal_g": 0, "mg_g": 0 },
+        "ec_min": 0, "ec_max": 0, "tds_min": 0, "tds_max": 0,
+        "daily_tasks": ["Turn ON 4L Humidifier: maintain 85%–90% RH", "Turn ON 200mm Exhaust Fan: keep CO2 < 800 ppm", "Provide 10–12 hrs indirect light (1000 Lux)", "Cut 4-5 X-shaped slits on bag walls"],
+        "weekly_tasks": ["Harvest mature clusters by twisting base cleanly when cap edges uncurl", "Mist room walls 3x daily", "Allow bag 5-day resting period before Flush 2"],
+        "observations": ["Tiny brown/gray pinhead clusters bursting out of bag slits by Day 20–22", "Pinheads expanding into broad fan-shaped caps within 48–72 hours", "Short stout stems with firm caps (good airflow indicator)"]
+      }
+    ]
+  },
+  {
+    "kit_id": "kit_casing_button_mushroom",
+    "mixing_sequence": [
+      "No liquid nutrients required — compost substrate provides all nutrition",
+      "Compost per 100 kg: 100 kg Wheat Straw + 60 kg Poultry Manure + 3 kg Urea + 15 kg Wheat Bran + 10 kg Gypsum",
+      "Pasteurize compost at 60°C–65°C",
+      "Casing soil at Day 18: mix 1 part Cow Dung + 1 part Coir Pith + 5% Chalk Powder CaCO3",
+      "Pasteurize casing soil at 65°C for 4 hours",
+      "Apply 1.5 inch casing layer over colonized compost"
+    ],
+    "critical_rules": [
+      "Temperature shock is mandatory: drop to 14°C–16°C at Day 26 to trigger pinning",
+      "Casing moisture should feel like a damp sponge — never muddy",
+      "Fill stem holes after each flush with fresh pasteurized casing soil",
+      "CO2 must stay below 1000 ppm during fruiting phase"
+    ],
+    "phases": [
+      {
+        "phase": 1, "name": "Spawn Run", "week_start": 1, "week_end": 2, "day_start": 1, "day_end": 17,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 0, "cal_g": 0, "mg_g": 0 },
+        "ec_min": 0, "ec_max": 0, "tds_min": 0, "tds_max": 0,
+        "daily_tasks": ["Maintain room temp at 23°C–25°C", "Keep room pitch dark (0 Lux)", "Keep humidity at 65%–70%"],
+        "weekly_tasks": ["Inspect compost for uniform white mycelium thread colonization", "Check for competitor molds (Aspergillus/Penicillium)"],
+        "observations": ["Silvery-white mycelial threads spreading through dark compost", "Full colonization by Day 15–17"]
+      },
+      {
+        "phase": 2, "name": "Casing & Case Run", "week_start": 3, "week_end": 4, "day_start": 18, "day_end": 25,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 0, "cal_g": 0, "mg_g": 0 },
+        "ec_min": 0, "ec_max": 0, "tds_min": 0, "tds_max": 0,
+        "daily_tasks": ["Apply pasteurized casing soil 1.5\" deep over compost", "Lightly mist casing layer with fine water spray", "Maintain temp at 22°C–24°C"],
+        "weekly_tasks": ["Check casing moisture (damp sponge feel — never muddy)", "Mop room floor with 1% formalin solution"],
+        "observations": ["Mycelium growing upward into casing layer", "Case Run complete when white mycelium covers 70% of casing surface"]
+      },
+      {
+        "phase": 3, "name": "Temperature Shock & Pinning", "week_start": 4, "week_end": 5, "day_start": 26, "day_end": 34,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 0, "cal_g": 0, "mg_g": 0 },
+        "ec_min": 0, "ec_max": 0, "tds_min": 0, "tds_max": 0,
+        "daily_tasks": ["Cold Shock: drop AC temp strictly to 14°C–16°C", "Increase fresh air ventilation (CO2 < 1000 ppm)", "Turn ON Humidifier (85%–90% RH)"],
+        "weekly_tasks": ["Inspect casing surface for tiny white pinhead initials", "Maintain gentle surface misting"],
+        "observations": ["Mycelium knotting into tiny pea-sized white button pins", "Pins developing smooth round cap shapes"]
+      },
+      {
+        "phase": 4, "name": "Harvesting & Flushes", "week_start": 5, "week_end": 7, "day_start": 35, "day_end": 45,
+        "dosage_per_20L": { "grow_g": 0, "bloom_g": 0, "cal_g": 0, "mg_g": 0 },
+        "ec_min": 0, "ec_max": 0, "tds_min": 0, "tds_max": 0,
+        "daily_tasks": ["Harvest solid tight white button caps by twisting gently at base", "Keep room temp at 16°C–18°C"],
+        "weekly_tasks": ["Fill stem holes in casing with fresh pasteurized casing soil", "Water casing lightly after clearing Flush 1 to trigger Flush 2"],
+        "observations": ["Clean bright-white button mushrooms (30mm–50mm cap diameter) with veil intact", "3 successive harvest flushes spaced 7 days apart"]
+      }
+    ]
+  }
+]
