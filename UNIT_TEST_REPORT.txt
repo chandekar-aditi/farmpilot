@@ -1,0 +1,280 @@
+================================================================================
+  FARMPILOT — UNIT TEST REPORT
+  Test File : backend/tests/test_suite.py
+  Framework : pytest 9.2.0
+  Python    : 3.11.9
+  Platform  : win32
+  Total Tests: 31    Passed: 31    Failed: 0
+================================================================================
+
+
+--------------------------------------------------------------------------------
+  MODULE 1 — SYSTEM-WIDE TESTS  (T01 – T08)
+  Class: TestSystem
+  Purpose: Verify that the entire data loading pipeline and cross-module
+           integration works correctly from cold start.
+--------------------------------------------------------------------------------
+
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| No. | Test ID              | What the Test Does                          | Actual Output                               | Expected Output                             | Result |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T01 | TC-SYS-01            | Calls all_crops_list() to load crops.json   | Returns a list of 6 crop dictionaries with  | List length >= 5. All records loaded        | PASS   |
+|     | test_sys_01_all_     | from disk and checks that at least 5 crop   | no errors. len(crops) = 6.                  | without FileNotFoundError or JSON parse     |        |
+|     | crops_load           | records are returned. Verifies the JSON     |                                             | errors.                                     |        |
+|     |                      | file is present and parseable on startup.   |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T02 | TC-SYS-02            | For every crop in the catalogue, checks     | All 6 crops pass: get_crop() returns a      | get_crop(id) is not None for all crops.     | PASS   |
+|     | test_sys_02_data_    | that (a) get_crop() finds the crop entry    | dict. All seed/spawn product IDs found in   | Every seed_product_id / spawn_product_id    |        |
+|     | referential_         | by its ID and (b) the seed or spawn product | products.json. No KeyError raised.          | referenced in crops.json exists as a key    |        |
+|     | integrity            | ID it references actually exists in         |                                             | in products.json.                           |        |
+|     |                      | products.json. Guards against broken        |                                             |                                             |        |
+|     |                      | cross-file references.                      |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T03 | TC-SYS-03            | Runs estimate_total_cost() for every crop   | All 6 crops return setup >= 0 and           | setup_cost >= 0 and cycle_cost >= 0 for     | PASS   |
+|     | test_sys_03_budget_  | with kit_count=1 and checks that neither    | cycle >= 0. No negative values or           | every crop. No crash, no negative cost.     |        |
+|     | estimate_non_        | the setup cost nor the cycle cost comes     | exceptions returned.                        |                                             |        |
+|     | negative             | back as a negative number. Catches sign     |                                             |                                             |        |
+|     |                      | errors in the formula evaluator.            |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T04 | TC-SYS-04            | Sends a standard beginner indoor request    | top3 list has 3 items. len(top3) = 3.       | len(top3) >= 1. At least one viable crop    | PASS   |
+|     | test_sys_04_         | (50 sqft, Rs.50000, home_kitchen goal) to   | Also list has additional items.             | recommendation is returned for a typical    |        |
+|     | recommendation_      | run_recommendation() and verifies that at   |                                             | user profile.                               |        |
+|     | returns_results      | least one recommendation is returned.       |                                             |                                             |        |
+|     |                      | Confirms the engine does not return empty.  |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T05 | TC-SYS-05            | Checks every recommendation score from the  | All scores fall between 0.0 and 100.0.      | Every score satisfies 0 <= score <= 100.    | PASS   |
+|     | test_sys_05_scores_  | same standard request is within the         | No out-of-range values detected.            | The scoring algorithm is bounded correctly  |        |
+|     | are_bounded          | designed range of 0 to 100. Prevents        |                                             | and cannot overflow its maximum.            |        |
+|     |                      | runaway scoring from edge-case inputs.      |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T06 | TC-SYS-06            | Calls build_solution_response() for every   | Solution responses built for 4 liquid       | crop_name matches crops.json name. At       | PASS   |
+|     | test_sys_06_         | crop that has a liquid reservoir            | crops (Spinach, Lettuce, Bell Pepper,       | least 1 phase_card in every response.       |        |
+|     | solution_guide_      | (reservoir_L_per_kit > 0). Verifies the     | Cherry Tomato). All have correct crop_name  | No exception raised.                        |        |
+|     | builds_for_all_      | crop name is correct and at least one       | and len(phase_cards) >= 1.                  |                                             |        |
+|     | liquid_crops         | phase card is generated.                    |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T07 | TC-SYS-07            | Calls estimate_total_cost() with            | Returns setup=0.0, cycle=0.0. No            | Function returns without crashing.          | PASS   |
+|     | test_sys_07_zero_    | kit_count=0 (an edge-case boundary input)   | ZeroDivisionError, no negative numbers.     | setup >= 0 and cycle >= 0.                  |        |
+|     | kit_count_handled    | and checks the system does not crash.       |                                             |                                             |        |
+|     |                      | Verifies graceful handling of zero kits.    |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T08 | TC-SYS-08            | Iterates through every product in           | All 10 products have all 5 required fields. | Every product entry contains name,          | PASS   |
+|     | test_sys_08_         | products.json and checks that each one      | No missing keys found.                      | price_inr, pack_size_kg, link, image_url.   |        |
+|     | products_have_       | contains the five mandatory fields: name,   |                                             | No product is missing any required field.   |        |
+|     | required_fields      | price_inr, pack_size_kg, link, image_url.   |                                             |                                             |        |
+|     |                      | Guards against incomplete product entries.  |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+
+
+--------------------------------------------------------------------------------
+  MODULE 2 — RECOMMENDATION MODULE TESTS  (T09 – T14)
+  Class: TestRecommendation
+  Purpose: Verify the hard-filter logic, scoring algorithm, and rank ordering
+           of the recommendation engine behave correctly.
+--------------------------------------------------------------------------------
+
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| No. | Test ID              | What the Test Does                          | Actual Output                               | Expected Output                             | Result |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T09 | TC-REC-01            | Calls _hard_filter() with Bell Pepper crop  | ok=False, reason contains "Budget".         | ok is False. Reason string mentions         | PASS   |
+|     | test_rec_01_hard_    | (min_budget Rs.12000) against a request     | The crop is correctly rejected.             | "budget" or "Budget". Crop is excluded      |        |
+|     | filter_budget        | with max_budget_inr=100 (way below          |                                             | before scoring even runs.                   |        |
+|     |                      | minimum). Verifies the budget hard filter   |                                             |                                             |        |
+|     |                      | rejects unaffordable crops immediately.     |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T10 | TC-REC-02            | Calls _hard_filter() with Cherry Tomato     | ok=False, reason contains "Ceiling" and     | ok is False. Reason mentions "ft" or        | PASS   |
+|     | test_rec_02_hard_    | (min_height_ft=6.5) against a request where | "ft". Crop correctly rejected for low       | "height" or "Ceiling". Crop excluded        |        |
+|     | filter_height        | height_ft=4.0 (insufficient ceiling).       | ceiling.                                    | due to physical space constraint.           |        |
+|     |                      | Verifies the height hard filter blocks      |                                             |                                             |        |
+|     |                      | crops that cannot physically fit.           |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T11 | TC-REC-03            | Calls _hard_filter() with Lettuce NFT crop  | ok=False. Crop correctly rejected.          | ok is False. A crop that needs stable       | PASS   |
+|     | test_rec_03_hard_    | (power_required=True) against a request     |                                             | power must be excluded when the user has    |        |
+|     | filter_power         | where power_reliability="frequent".         |                                             | frequent power cuts.                        |        |
+|     |                      | Verifies crops needing power are blocked    |                                             |                                             |        |
+|     |                      | for users with unreliable electricity.      |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T12 | TC-REC-04            | Calls _score() separately for Spinach       | score_spinach > score_bell_pepper.          | Spinach score is strictly higher than       | PASS   |
+|     | test_rec_04_fast_    | (30-day cycle) and Bell Pepper (210-day     | Spinach scores approximately 82.5.          | Bell Pepper score when the goal is          |        |
+|     | harvest_goal_        | cycle) with the goal "fast_harvest".        | Bell Pepper scores approximately 36.4.      | fast_harvest. The cycle-speed component     |        |
+|     | scores_spinach_      | Verifies that the cycle-speed scoring       |                                             | (15 pts) favours shorter cycles.            |        |
+|     | higher               | component correctly rewards short-cycle     |                                             |                                             |        |
+|     |                      | crops when speed is the user's priority.    |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T13 | TC-REC-05            | Runs run_recommendation() with the standard | scores list = [score1, score2, score3]      | scores == sorted(scores, reverse=True).     | PASS   |
+|     | test_rec_05_         | request and extracts the score from each    | where score1 >= score2 >= score3.           | The top-3 list must always be in            |        |
+|     | recommendation_      | of the top-3 results. Verifies the results  | List is in descending order.                | descending score order. Rank 1 always       |        |
+|     | rank_ordering        | are sorted from highest to lowest score.    |                                             | has the highest score.                      |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T14 | TC-REC-06            | Runs run_recommendation() with              | Neither oyster mushroom nor button          | Oyster mushroom ID and button mushroom ID   | PASS   |
+|     | test_rec_06_         | environment="outdoor" and a large budget    | mushroom ID appears in top3 or also lists.  | are absent from all recommendation lists.  |        |
+|     | outdoor_mushroom_    | (Rs.200000) to get as many results as       |                                             | Mushrooms are indoor-only and must never    |        |
+|     | filtered             | possible. Verifies no mushroom crop ever    |                                             | appear in outdoor recommendations.          |        |
+|     |                      | appears in an outdoor recommendation.       |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+
+
+--------------------------------------------------------------------------------
+  MODULE 3 — NUTRIENT DOSING / SOLUTION MODULE TESTS  (T15 – T20)
+  Class: TestDosing
+  Purpose: Verify the nutrient dosing calculations, reservoir scaling formulas,
+           and buy-list generation produce mathematically correct results.
+--------------------------------------------------------------------------------
+
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| No. | Test ID              | What the Test Does                          | Actual Output                               | Expected Output                             | Result |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T15 | TC-DOS-01            | Builds solution responses for Spinach with  | For every phase: p2.grow_g == p1.grow_g*2,  | All four nutrient doses (grow_g, bloom_g,   | PASS   |
+|     | test_dos_01_         | kit_count=1 and kit_count=2. Compares every | p2.cal_g == p1.cal_g*2, etc. All 12        | cal_g, mg_g) in the 2-kit response are      |        |
+|     | reservoir_scales_    | nutrient dose in every phase. Verifies that | comparisons pass with rel_tol=1e-6.         | exactly 2.0x the corresponding dose in      |        |
+|     | linearly             | doubling kits doubles every dose exactly    |                                             | the 1-kit response. The M_tank formula is   |        |
+|     |                      | (M_tank = reservoir_L / 20 is linear in     |                                             | O(1) with respect to kit_count.             |        |
+|     |                      | kit_count so the relationship must be 1:1). |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T16 | TC-DOS-02            | Fetches the Oyster Mushroom crop and checks | reservoir_L_per_kit = 0 confirmed.          | reservoir_L_per_kit == 0. All dose values   | PASS   |
+|     | test_dos_02_         | (a) reservoir_L_per_kit is 0, (b) every     | All phase dosage fields = 0.0.              | in every phase_card are 0.0. No priced      |        |
+|     | mushroom_has_no_     | dosage field in every phase card is 0.0,    | No NUT_NPK_01/NUT_CAN_02/NUT_MGS_03 items   | liquid-nutrient items in buy_list           |        |
+|     | liquid_nutrients     | and (c) the buy list has no priced liquid   | in buy_list. Test passes.                   | (excluding pH Down placeholder).            |        |
+|     |                      | nutrient items. Mushrooms use substrate,    |                                             |                                             |        |
+|     |                      | not liquid nutrients.                       |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T17 | TC-DOS-03            | For every liquid-nutrient crop, checks      | All phases across all 4 liquid crops have   | ec_min < ec_max for every phase of every    | PASS   |
+|     | test_dos_03_ec_      | every phase card to verify ec_min is        | ec_min strictly less than ec_max.           | liquid crop. EC window is always a          |        |
+|     | range_always_        | strictly less than ec_max. A reversed EC    | No reversed pairs found.                    | positive-width range, never zero-width      |        |
+|     | ascending            | range would be a data error that would      |                                             | or inverted.                                |        |
+|     |                      | mislead the farmer about targets.           |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T18 | TC-DOS-04            | For every liquid-nutrient crop with         | All 4 liquid crops return buy_list with     | len(buy_list) > 0 for every liquid crop.    | PASS   |
+|     | test_dos_04_buy_     | kit_count=2, checks that build_solution_    | at least 1 item. Spinach: 4 items.          | The nutrient purchase list is always        |        |
+|     | list_packs_non_zero  | response() returns a non-empty buy_list.    | Bell Pepper: 4 items. etc.                  | populated for liquid crops — the user       |        |
+|     |                      | An empty buy list would mean the Solution   |                                             | must always be shown what to buy.           |        |
+|     |                      | Guide shows nothing to purchase.            |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T19 | TC-DOS-05            | Builds a solution response for Bell Pepper  | total_nutrient_cost = 4218.0.               | math.isclose(total_nutrient_cost,           | PASS   |
+|     | test_dos_05_total_   | with 3 kits. Independently sums all         | Sum of buy_list totals = 4218.0.            | sum(buy_list[i].total_price), rel_tol=1e-4) |        |
+|     | cost_matches_buy_    | total_price values in the buy_list and      | isclose() = True.                           | is True. The summary field must be the      |        |
+|     | list_sum             | compares to the total_nutrient_cost field.  |                                             | arithmetic sum of all line items.           |        |
+|     |                      | Catches off-by-one or rounding discrepancy. |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T20 | TC-DOS-06            | For every liquid-nutrient crop, checks that | All 4 liquid crops return mixing_steps      | len(mixing_steps) > 0 for every liquid      | PASS   |
+|     | test_dos_06_mixing_  | build_solution_response() returns at least  | with at least 1 step. Spinach: 7 steps.     | crop. The Solution Guide must always        |        |
+|     | steps_non_empty_     | one mixing step. An empty mixing protocol   | Bell Pepper: 7 steps. etc.                  | have mixing instructions for a crop         |        |
+|     | for_liquid_crops     | would leave the farmer without preparation  |                                             | that uses liquid nutrients.                 |        |
+|     |                      | instructions on the Solution Guide tab.     |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+
+
+--------------------------------------------------------------------------------
+  MODULE 4 — SETUP & BUDGET / PURCHASING MODULE TESTS  (T21 – T26)
+  Class: TestBudget
+  Purpose: Verify that the Setup & Budget tab produces correct cost breakdowns,
+           section structure, quantity overrides, and yield calculations.
+--------------------------------------------------------------------------------
+
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| No. | Test ID              | What the Test Does                          | Actual Output                               | Expected Output                             | Result |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T21 | TC-BUD-01            | Calls build_setup_response() for Spinach    | section_ids = {"A", "B", "C", "D"}.        | The returned sections set equals            | PASS   |
+|     | test_bud_01_         | with 2 kits indoor and checks that the      | Exact match confirmed.                      | {"A", "B", "C", "D"}. All four sections     |        |
+|     | section_keys_        | response contains all four sections         |                                             | are always present regardless of crop       |        |
+|     | present              | A (hardware), B (addons), C (nutrients),    |                                             | type. The UI always renders four tabs.      |        |
+|     |                      | D (seeds/spawn).                            |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T22 | TC-BUD-02            | Calls build_setup_response() for Bell       | grand_total = 55892.0.                      | math.isclose(grand_total,                   | PASS   |
+|     | test_bud_02_grand_   | Pepper with 3 kits indoor. Reads            | setup_total + cycle_total = 55892.0.        | setup_total + cycle_total, rel_tol=1e-6)    |        |
+|     | total_equals_setup_  | grand_total, setup_total, cycle_total from  | isclose() = True.                           | is True. Grand total must equal the sum     |        |
+|     | plus_cycle           | cost_summary and verifies the arithmetic    |                                             | of its two components. No rounding          |        |
+|     |                      | grand_total = setup_total + cycle_total.    |                                             | error or extra fees added.                  |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T23 | TC-BUD-03            | Calls build_setup_response() for Spinach    | budget_remaining = 50000 - grand_total.     | math.isclose(budget_remaining,              | PASS   |
+|     | test_bud_03_budget_  | with 5 kits and max_budget=Rs.50000.        | Calculation is exact. isclose() = True.     | 50000 - grand_total, rel_tol=1e-6) is True. |        |
+|     | remaining_correct    | Checks that budget_remaining equals         |                                             | The remaining budget must be max_budget     |        |
+|     |                      | max_budget minus grand_total exactly.       |                                             | minus grand_total with no drift.            |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T24 | TC-BUD-04            | Calls build_setup_response() for Spinach    | base_kit item: qty=0, total_price=0.0,      | base_kit.qty == 0. base_kit.total_price     | PASS   |
+|     | test_bud_04_qty_     | with the override {"base_kit": 0}. Finds    | is_skipped=True. All three assertions pass. | == 0.0. base_kit.is_skipped is True.        |        |
+|     | override_zero_       | the base_kit line item in Section A and     |                                             | A zero-qty item must be flagged as          |        |
+|     | zeroes_line_total    | verifies qty=0, total_price=0, and          |                                             | skipped and must not add to cost totals.    |        |
+|     |                      | is_skipped=True. This is the "already own"  |                                             |                                             |        |
+|     |                      | feature where user skips items they have.   |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T25 | TC-BUD-05            | Calls build_setup_response() for Oyster     | liquid_items list is empty. No priced,      | len(liquid_items) == 0 where liquid_items   | PASS   |
+|     | test_bud_05_         | Mushroom with 1 kit and finds Section C     | non-skipped items in Section C.             | = items in Section C that are not skipped   |        |
+|     | mushroom_section_    | (Nutrients). Checks that no priced,         |                                             | and have total_price > 0. Mushrooms must    |        |
+|     | c_empty              | non-skipped liquid-nutrient items appear    |                                             | never show liquid nutrient purchase items.  |        |
+|     |                      | in Section C for a substrate-based crop.    |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T26 | TC-BUD-06            | Calls build_setup_response() for Spinach    | r1.expected_yield_kg = 0.5 kg.              | math.isclose(r3.expected_yield_kg,          | PASS   |
+|     | test_bud_06_         | twice: once with kit_count=1 and once with  | r3.expected_yield_kg = 1.5 kg.              | r1.expected_yield_kg * 3, rel_tol=1e-6)     |        |
+|     | expected_yield_      | kit_count=3. Checks that the 3-kit yield    | 1.5 == 0.5 * 3. isclose() = True.          | is True. Yield must scale in direct         |        |
+|     | scales_with_kit_     | is exactly 3 times the 1-kit yield.         |                                             | proportion to kit_count. No rounding        |        |
+|     | count                | Verifies the yield formula is linear.       |                                             | error or cap applied.                       |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+
+
+--------------------------------------------------------------------------------
+  MODULE 5 — TIMELINE MODULE TESTS  (T27 – T31)
+  Class: TestTimeline
+  Purpose: Verify that the growing phase timeline data is structurally complete
+           and that day-to-phase mapping logic is unambiguous and gap-free.
+--------------------------------------------------------------------------------
+
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| No. | Test ID              | What the Test Does                          | Actual Output                               | Expected Output                             | Result |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T27 | TC-TML-01            | For every liquid-nutrient crop, builds a    | All crops pass. Covered day sets match      | gaps set is empty for every crop.           | PASS   |
+|     | test_tml_01_phases_  | set of all days covered by all phases       | expected sets exactly. gaps = {} for all    | Days 1 through cycle_days must all be       |        |
+|     | cover_full_cycle     | combined. Compares it to the full range     | 4 liquid crops.                             | covered by some phase with no missing       |        |
+|     |                      | {1 … cycle_days}. Reports any missing       |                                             | days in between.                            |        |
+|     |                      | days as gaps. A gap means no tasks or       |                                             |                                             |        |
+|     |                      | dosage info exists for those days.          |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T28 | TC-TML-02            | For every liquid-nutrient crop, iterates    | No day appears more than once across all    | seen[d] is set exactly once per day.        | PASS   |
+|     | test_tml_02_no_      | through every phase and every day within    | phases. No overlap detected across all      | No day d satisfies day_start <= d <= day_end|        |
+|     | phase_overlaps       | each phase. Tracks seen days in a dict      | 4 liquid crops.                             | for two different phases simultaneously.   |        |
+|     |                      | and asserts no day appears in two phases.   |                                             |                                             |        |
+|     |                      | An overlap would cause the Timeline tab     |                                             |                                             |        |
+|     |                      | to show conflicting tasks.                  |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T29 | TC-TML-03            | For every liquid-nutrient crop, checks      | All phases satisfy week_start <= week_end.  | Within each phase: week_start <= week_end.  | PASS   |
+|     | test_tml_03_week_    | two ordering rules: (1) within each phase   | All consecutive phase pairs satisfy         | Between consecutive phases: phase[i].       |        |
+|     | ranges_consistent_   | week_start <= week_end, and (2) between     | phase[i].week_end <= phase[i+1].week_start. | week_end <= phase[i+1].week_start.          |        |
+|     | with_days            | consecutive phases the earlier phase's      | No violations found across all crops.       | Week labels must never go backwards or      |        |
+|     |                      | week_end does not exceed the next phase's   |                                             | overlap between phases.                     |        |
+|     |                      | week_start. Uses agronomic label ordering,  |                                             |                                             |        |
+|     |                      | not strict mathematical week calculation.   |                                             |                                             |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T30 | TC-TML-04            | For every liquid-nutrient crop, iterates    | For every day 1 to cycle_days across all    | len(matching) == 1 for every day d in       | PASS   |
+|     | test_tml_04_day_     | through every single day from day 1 to      | 4 crops, exactly 1 phase matches.           | {1 … cycle_days}. The timeline widget       |        |
+|     | detection_current_   | cycle_days. For each day, counts how many   | No day matches 0 or 2 phases.               | must always highlight exactly one current   |        |
+|     | phase                | phases contain that day in their range.     |                                             | phase. 0 matches = gap, 2 matches =         |        |
+|     |                      | Verifies every day maps to exactly 1 phase. |                                             | overlap — both are errors.                  |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+| T31 | TC-TML-05            | Iterates through all 6 crops (liquid and    | All 6 crops: first_harvest_day <            | first_harvest_day < cycle_days for all      | PASS   |
+|     | test_tml_05_first_   | mushroom) and checks that first_harvest_day | cycle_days. Spinach: 25 < 30. Bell Pepper:  | crops. The first harvest must always        |        |
+|     | harvest_day_within_  | is strictly less than cycle_days. This      | 75 < 210. Cherry Tomato: 75 < 180. etc.    | occur before the cycle ends. A crop         |        |
+|     | cycle                | ensures the first harvest always falls      | All pass.                                   | where harvest_day >= cycle_days would       |        |
+|     |                      | inside the growing cycle, not after it.     |                                             | have no valid harvest window.               |        |
++-----+----------------------+---------------------------------------------+---------------------------------------------+---------------------------------------------+--------+
+
+
+================================================================================
+  FINAL SUMMARY
+================================================================================
+
+  +-----------------------------+-------+--------+--------+
+  | Module                      | Total | Passed | Failed |
+  +-----------------------------+-------+--------+--------+
+  | System-wide (T01-T08)       |   8   |   8    |   0    |
+  | Recommendation (T09-T14)    |   6   |   6    |   0    |
+  | Nutrient Dosing (T15-T20)   |   6   |   6    |   0    |
+  | Setup & Budget (T21-T26)    |   6   |   6    |   0    |
+  | Timeline (T27-T31)          |   5   |   5    |   0    |
+  +-----------------------------+-------+--------+--------+
+  | TOTAL                       |  31   |  31    |   0    |
+  +-----------------------------+-------+--------+--------+
+
+  Overall Result : ALL TESTS PASSED
+  Pass Rate      : 100% (31 / 31)
+
+================================================================================
