@@ -37,22 +37,28 @@ const TOTAL = 8
 
 export default function InputWizard() {
   const navigate = useNavigate()
-  const { setWizardAnswers, setRecommendations } = useRecommendStore()
+  const { setWizardAnswers, setRecommendations, wizardAnswers } = useRecommendStore()
   const user = useAuthStore((s) => s.user)
   const [step, setStep]       = useState(0)
   const [loading, setLoading] = useState(false)
+
+  // Pre-fill with previous wizard answers when re-entering from the nav link.
+  // Falls back to defaults for first-time onboarding.
   const [form, setForm] = useState({
-    space_sqft:        '',
-    height_ft:         '',
-    environment:       'indoor',
-    max_budget_inr:    20000,
-    primary_goals:     [],
-    power_reliability: 'stable',
-    daily_effort_min:  30,
-    experience:        user?.experience_level || 'beginner',
-    temperature_c:     28,
-    humidity_pct:      60,
+    space_sqft:        wizardAnswers?.space_sqft        ?? '',
+    height_ft:         wizardAnswers?.height_ft         ?? '',
+    environment:       wizardAnswers?.environment       ?? 'indoor',
+    max_budget_inr:    wizardAnswers?.max_budget_inr    ?? 20000,
+    primary_goals:     wizardAnswers?.primary_goals     ?? [],
+    power_reliability: wizardAnswers?.power_reliability ?? 'stable',
+    daily_effort_min:  wizardAnswers?.daily_effort_min  ?? 30,
+    experience:        wizardAnswers?.experience        ?? user?.experience_level ?? 'beginner',
+    temperature_c:     wizardAnswers?.temperature_c     ?? 28,
+    humidity_pct:      wizardAnswers?.humidity_pct      ?? 60,
   })
+
+  // True when the user is re-running recommendations (not first-time signup).
+  const isRerun = wizardAnswers !== null
 
   const next = () => setStep(s => Math.min(s + 1, TOTAL - 1))
   const back = () => setStep(s => Math.max(s - 1, 0))
@@ -206,8 +212,12 @@ export default function InputWizard() {
       <div className="min-h-screen bg-[#F8FAF9] flex items-center justify-center px-4 py-16">
         <div className="w-full max-w-xl">
           <div className="text-center mb-6">
-            <span className="text-3xl font-bold text-green-700">🌿 FarmPilot</span>
-            <p className="text-gray-400 text-sm mt-1">Step {step + 1} of {TOTAL}</p>
+            <span className="text-3xl font-bold text-green-700">
+              {isRerun ? '🔍 Find My Crops' : '🌿 FarmPilot'}
+            </span>
+            <p className="text-gray-400 text-sm mt-1">
+              {isRerun ? 'Update your preferences to get fresh recommendations' : 'Step ' + (step + 1) + ' of ' + TOTAL}
+            </p>
           </div>
 
           <ProgressDots total={TOTAL} current={step} />

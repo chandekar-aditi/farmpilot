@@ -27,6 +27,7 @@ export default function Navbar({ transparent = false }) {
             <>
               <Link to="/learn" className={`text-sm font-medium ${solid ? 'text-gray-600' : 'text-white'} hover:text-green-600 transition-colors`}>Learn & Grow</Link>
               <Link to="/projects" className={`text-sm font-medium ${solid ? 'text-gray-600' : 'text-white'} hover:text-green-600 transition-colors`}>My Projects</Link>
+              <Link to="/onboarding" className={`text-sm font-medium ${solid ? 'text-gray-600' : 'text-white'} hover:text-green-600 transition-colors`}>Recommendations</Link>
               <div className={`text-sm ${solid ? 'text-gray-500' : 'text-green-200'}`}>Hi, {user.name?.split(' ')[0]}</div>
               <button
                 onClick={() => { clearAuth(); navigate('/') }}
